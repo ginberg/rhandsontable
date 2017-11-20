@@ -58,6 +58,33 @@ HTMLWidgets.widget({
 
       instance.hot = new Handsontable(el, x);
 
+      // search option
+      if(x.search == true){
+        var searchField = document.createElement("input");
+        searchField.setAttribute('type', 'text');
+        searchField.id = "searchFieldID";
+        searchField.className = "ht_search";
+        
+        var searchLabel = document.createElement("label");
+        searchLabel.setAttribute("for", searchField.id);
+        searchLabel.innerHTML = "Search";
+        searchLabel.id = "searchLabelID";
+        searchLabel.className = "ht_search";
+        
+        // move these down to make space for search field/label
+        document.getElementsByClassName("ht_clone_top")[0].style.marginTop = "28px"; 
+        document.getElementsByClassName("ht_clone_left")[0].style.marginTop = "28px";
+        document.getElementsByClassName("ht_clone_top_left_corner")[0].style.marginTop = "28px";
+
+        el.insertBefore(searchField, el.firstChild);
+        el.insertBefore(searchLabel, el.firstChild);
+
+        Handsontable.dom.addEvent(searchField, 'keyup', function (event) {
+          var queryResult = instance.hot.search.query(this.value);
+          instance.hot.render();
+        });
+      }
+      
       this.afterChangeCallback(x);
       this.afterCellMetaCallback(x);
       this.afterRowAndColChange(x);
@@ -68,14 +95,6 @@ HTMLWidgets.widget({
 
       instance.hot.params = x;
       instance.hot.updateSettings(x);
-      
-      var searchField = document.getElementById('searchField');
-      if (typeof(searchField) != 'undefined' && searchField != null) {
-        Handsontable.dom.addEvent(searchField, 'keyup', function (event) {
-          var queryResult = instance.hot.search.query(this.value);
-          instance.hot.render();
-        });
-      }
     }
   },
 

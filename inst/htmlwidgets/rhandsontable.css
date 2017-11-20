@@ -25,3 +25,14 @@
   white-space: pre-line;
   /*max-width: /* enter here your max header width */
 }
+
+/*search field and label */
+#searchLabelID {
+  display: inline-block;
+  width: 80px;
+  text-align: center;
+}
+#searchFieldID {
+  width: 220px;
+  border-width:1px;
+}
