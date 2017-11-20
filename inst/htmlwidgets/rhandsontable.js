@@ -72,9 +72,13 @@ HTMLWidgets.widget({
         searchLabel.className = "ht_search";
         
         // move these down to make space for search field/label
-        document.getElementsByClassName("ht_clone_top")[0].style.marginTop = "28px"; 
-        document.getElementsByClassName("ht_clone_left")[0].style.marginTop = "28px";
-        document.getElementsByClassName("ht_clone_top_left_corner")[0].style.marginTop = "28px";
+        var elementClasses = ["ht_clone_top", "ht_clone_left","ht_clone_top_left_corner"];
+        for(var elementClass in elementClasses){
+          var elements = document.getElementsByClassName(elementClasses[elementClass]);
+          if(elements.length > 0){
+            elements[0].style.marginTop = "28px";
+          }
+        }
 
         el.insertBefore(searchField, el.firstChild);
         el.insertBefore(searchLabel, el.firstChild);
